@@ -1,5 +1,5 @@
-<!-- doc-version: 0.1.0 -->
-# Project Context - dev-spawner
+<!-- doc-version: 0.1.1 -->
+# Project Context - devenv-spawner
 
 ## Vision
 Automate the creation of development user environments on a shared VM, so new users (family members) get a fully working dev setup identical to the reference environment in minutes, not hours.
@@ -26,16 +26,17 @@ A provisioning script (bash) that:
 
 Shared system-level tools (Docker, Go, Python) are NOT installed per-user -- they're already available system-wide.
 
-## Current Status (2026-03-01)
-v0.1.0 implemented and tested with testuser. spawn-user.sh includes automatic verify (bash) + diagnose (Claude Code CLI). Ready for provisioning real users (Laura, Oscar).
+## Current Status (2026-05-13)
+v0.1.1 consolidates the previously uncommitted docs guardrail and rename cleanup. spawn-user.sh includes automatic verify (bash) + diagnose (Claude Code CLI). Test phase with testuser is complete; Laura has been provisioned. The repository was renamed from `dev-spawner` to `devenv-spawner` and is now the user-provisioning layer of the `devenv-stack` registered in `~/src/home-infra/docs/DEVENV_STACK.md`.
 
 ## Upcoming Milestones
 1. ~~Brainstorming: resolve all open design decisions~~ - DONE 2026-03-01
 2. ~~v0.1.0: Core provisioning + teardown scripts~~ - DONE 2026-03-01
-3. Testing: validate with testuser, then Laura/Oscar - IN PROGRESS
+3. Rollout: remove testuser and provision Laura, then Oscar - IN PROGRESS
 4. v0.2.0: Additional optional modules (doppler, etc.) - TBD
 
 ## References
 - Infrastructure docs: ~/src/home-infra/docs/
+- Devenv stack source of truth: ~/src/home-infra/docs/DEVENV_STACK.md
 - Reference environment: cdelalama@dev-vm user setup
 - Template: [LLM-DocKit](https://github.com/cdelalama/LLM-DocKit)

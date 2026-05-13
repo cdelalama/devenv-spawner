@@ -1,9 +1,9 @@
-<!-- doc-version: 0.1.0 -->
-# LLM Start Guide - dev-spawner
+<!-- doc-version: 0.1.1 -->
+# LLM Start Guide - devenv-spawner
 
 ## Read This First (Mandatory)
 
-Welcome to dev-spawner. Before you contribute, review the sections below.
+Welcome to devenv-spawner. Before you contribute, review the sections below.
 
 Recommended reading order:
 1. This file (rules, workflows, and current expectations)
@@ -35,9 +35,9 @@ Recommended reading order:
 ## Current Focus (Snapshot)
 
 Source of truth: docs/llm/HANDOFF.md.
-- Last Updated: 2026-03-01 - Claude Opus 4.6
-- Working on: Testing v0.1.0 with verify + diagnose
-- Status: v0.1.0 implemented. Auto-verify (bash) + auto-diagnose (Claude CLI) integrated. Testing with testuser.
+- Last Updated: 2026-05-13 - GPT-5 Codex
+- Working on: Preserving the user-provisioning workflow while recording the `devenv-spawner` rename and stack membership.
+- Status: v0.1.1 consolidates the Stop hook docs guardrail and the `devenv-spawner` rename cleanup. Auto-verify (bash) + auto-diagnose (Claude CLI) remain unchanged.
 
 ## Quick Navigation
 - Project Overview: docs/PROJECT_CONTEXT.md

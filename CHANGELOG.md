@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2026-05-13
+
+### Changed
+- Recorded the repository rename from `dev-spawner` to `devenv-spawner` and its role as the user-provisioning layer of the `devenv-stack`.
+- Updated active documentation and user-visible script/template labels to use the new `devenv-spawner` name.
+
+### Fixed
+- Added the missing `scripts/dockit-validate-session.sh` that the Stop hook expects.
+- Added `scripts/dockit-stop-hook.sh` and scoped it so read-only sessions do not force spurious HANDOFF/HISTORY updates.
+
 ## [0.1.0] - 2026-03-01
 
 ### Added

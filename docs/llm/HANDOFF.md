@@ -1,17 +1,17 @@
-<!-- doc-version: 0.1.0 -->
-# LLM Work Handoff - dev-spawner
+<!-- doc-version: 0.1.1 -->
+# LLM Work Handoff - devenv-spawner
 
 ## Current Status
-- Last Updated: 2026-03-01 - Claude Opus 4.6
-- Session Focus: Added automatic verify + diagnose, fixed ((COUNT++)) bug, testing
-- Status: v0.1.0 implemented and tested with testuser. Verify + diagnose integrated.
+- Last Updated: 2026-05-13 - GPT-5 Codex
+- Session Focus: Consolidated the previously uncommitted Stop hook docs guardrail, missing validator script, and `dev-spawner` -> `devenv-spawner` rebrand cleanup.
+- Status: v0.1.1 on `main`. Laura provisioned (2026-03-02). The repository is now the user-provisioning layer of the `devenv-stack`; pending runtime work remains validating `--update-templates` backup behavior.
 
 ## Project Summary
 
-**dev-spawner** automates provisioning of development user environments on a shared Ubuntu VM (dev-vm, 10.0.0.110). Run one script, get a fully working dev environment.
+**devenv-spawner** automates provisioning of development user environments on a shared Ubuntu VM (dev-vm, 10.0.0.110). Run one script, get a fully working dev environment.
 
-**Repository:** https://github.com/cdelalama/dev-spawner
-**Current version:** 0.1.0
+**Repository:** https://github.com/cdelalama/devenv-spawner
+**Current version:** 0.1.1
 **Tech stack:** Bash scripts + Claude Code CLI (for diagnosis), no other external dependencies
 
 ## What's Implemented
@@ -65,7 +65,7 @@ Safe user removal with confirmation.
 
 ## Closed Design Decisions
 
-See `docs/llm/DECISIONS.md` for full rationale (D-001 through D-007).
+See `docs/llm/DECISIONS.md` for full rationale (D-001 through D-009).
 
 Summary:
 - D-001: Multi-user on same VM (not separate VMs)
@@ -75,17 +75,21 @@ Summary:
 - D-005: API key shared opt-in only (--copy-admin-credentials)
 - D-006: Create-if-missing with --update-templates for updates
 - D-007: Automatic verify (bash) + diagnose (Claude Code CLI) post-provisioning
+- D-008: Stop hook gates on real code edits, not session occurrence
+- D-009: `devenv-spawner` is the user-provisioning layer of the `devenv-stack`
 
 ## Known Bugs Fixed
 - `((COUNT++))` with `set -e`: bash arithmetic returns exit 1 when result is 0 (post-increment from 0). Fixed by using `COUNT=$((COUNT + 1))` instead.
 
-## Top Priorities
-1. **NOW**: Test --update-templates backup behavior (with testuser)
-2. **NEXT**: Test despawn-user.sh (remove testuser)
-3. **THEN**: Provision Laura and/or Oscar
-4. **LATER**: Additional optional modules
+## Active Users
+- **laura** — provisioned 2026-03-02, all 12 checks PASS, credentials copied from admin
 
-**Note:** testuser exists on dev-vm and must be removed with `despawn-user.sh` after testing is complete.
+## Top Priorities
+1. **DONE**: ~~Remove testuser~~ (already removed)
+2. **DONE**: ~~Provision Laura~~ (completed 2026-03-02, 15 created, 0 warnings)
+3. **NEXT**: Validate `--update-templates` backup behavior on Laura
+4. **LATER**: Additional optional modules
+5. **DONE**: ~~Commit the Stop-hook/validator guardrail and devenv-stack rename cleanup~~ (v0.1.1)
 
 ## Do Not Touch
 - Templates should not be modified without re-testing spawn-user.sh

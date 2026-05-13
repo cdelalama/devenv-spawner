@@ -77,7 +77,7 @@ validate_username() {
 main() {
     parse_args "$@"
 
-    echo -e "${RED}dev-spawner${NC} — removing user '${USERNAME}'"
+    echo -e "${RED}devenv-spawner${NC} — removing user '${USERNAME}'"
     echo ""
 
     check_root

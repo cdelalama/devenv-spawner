@@ -659,7 +659,7 @@ VERIFY_FAILURES=()
 main() {
     parse_args "$@"
 
-    echo -e "${GREEN}dev-spawner${NC} — provisioning user '${USERNAME}'"
+    echo -e "${GREEN}devenv-spawner${NC} — provisioning user '${USERNAME}'"
     echo ""
 
     check_root

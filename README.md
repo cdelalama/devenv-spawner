@@ -1,5 +1,5 @@
-<!-- doc-version: 0.1.0 -->
-# dev-spawner
+<!-- doc-version: 0.1.1 -->
+# devenv-spawner
 
 Automated provisioning of development user environments on dev-vm.
 
@@ -7,7 +7,9 @@ Automated provisioning of development user environments on dev-vm.
 
 ## Overview
 
-dev-spawner creates and manages development environments for multiple users on a shared Ubuntu VM. It replicates the core development tooling (Node.js, Docker, Claude Code, tmux, git) into isolated user home directories, so each person gets a fully functional dev setup without interfering with others.
+devenv-spawner creates and manages development environments for multiple users on a shared Ubuntu VM. It replicates the core development tooling (Node.js, Docker, Claude Code, tmux, git) into isolated user home directories, so each person gets a fully functional dev setup without interfering with others.
+
+This repository was renamed from `dev-spawner` to `devenv-spawner` on 2026-05-13 as part of the `devenv-stack` consolidation. The canonical stack record lives in `~/src/home-infra/docs/DEVENV_STACK.md`; the legacy `~/src/dev-spawner` path remains as a temporary compatibility symlink during the transition.
 
 After provisioning, the script automatically verifies the environment (12 bash checks) and uses Claude Code CLI to diagnose any failures.
 

@@ -1,14 +1,14 @@
-<!-- doc-version: 0.1.0 -->
-# dev-spawner Architecture
+<!-- doc-version: 0.1.1 -->
+# devenv-spawner Architecture
 
-> Version: 0.1.0
-> Last Updated: 2026-03-01
+> Version: 0.1.1
+> Last Updated: 2026-05-13
 > Status: Design
 > Authors: Carlos de la Lama-Noriega
 
 ## Overview
 
-dev-spawner is a bash-based provisioning tool that creates development user environments on a shared Ubuntu VM. It runs on dev-vm (10.0.0.110) and creates Linux users with a fully configured development setup.
+devenv-spawner is a bash-based provisioning tool that creates development user environments on a shared Ubuntu VM. It runs on dev-vm (10.0.0.110) and creates Linux users with a fully configured development setup.
 
 - **What it is**: A provisioning script + dotfile templates
 - **Who uses it**: System admin (Carlos) to create environments for family members

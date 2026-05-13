@@ -2,7 +2,7 @@
 
 ## Top-Level Layout
 ```
-dev-spawner/
+devenv-spawner/
 +-- README.md                    (project introduction and quick start)
 +-- LLM_START_HERE.md            (mandatory reading for LLM contributors)
 +-- VERSION                      (project version, source of truth)
