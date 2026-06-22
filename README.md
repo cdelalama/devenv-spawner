@@ -1,4 +1,4 @@
-<!-- doc-version: 0.1.1 -->
+<!-- doc-version: 0.1.2 -->
 # devenv-spawner
 
 Automated provisioning of development user environments on dev-vm.

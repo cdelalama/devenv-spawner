@@ -1,5 +1,4 @@
 # Decision Log (Stable Rationale)
-
 This file captures durable "why" decisions. Keep it stable and link to it from `docs/llm/HANDOFF.md`.
 
 Format:
@@ -132,7 +131,7 @@ Need to validate that provisioning actually worked. Options: manual testing, bas
 
 ## D-008 - Stop hook gates on real code edits, not session occurrence
 
-**Status:** accepted (2026-05-12)
+**Status:** superseded (2026-06-22 by D-010)
 
 ### Decision
 The Stop hook (`scripts/dockit-stop-hook.sh`) only blocks session-end when both:
@@ -158,6 +157,10 @@ The written rule at `.claude/rules/require-docs-on-code-change.md` already scope
 - If the transcript is missing or unreadable, the hook is lenient (exits 0). Acceptable: a malformed transcript is a Claude Code issue, not a docs-discipline issue.
 - The glob list is duplicated between the rule file and the hook script. If the rule globs change, update both. Kept simple (no YAML parser dependency) at the cost of this duplication.
 
+### Supersession note
+D-008 describes the v0.1.1 local Stop-hook model. In v0.1.2 the repo follows
+the LLM-DocKit v4.12 template-managed hook model instead; see D-010.
+
 ---
 
 ## D-009 - devenv-spawner is the user-provisioning layer of the devenv-stack
@@ -179,3 +182,40 @@ The remote development tooling previously lived under several unrelated repo nam
 - New documentation, handoffs, and cross-repo references should use `devenv-spawner`.
 - Historical references to `dev-spawner` remain valid when discussing pre-rename commits or compatibility symlinks.
 - The parallel LLM-DocKit Stop-hook/validator upgrade remains separate work and should be committed independently.
+
+---
+
+## D-010 - LLM-DocKit v4.12 owns session governance
+
+**Status:** accepted (2026-06-22)
+
+### Decision
+Adopt the LLM-DocKit v4.12.3 template-managed session governance model for
+this repo. Claude Code SessionStart uses `scripts/dockit-bootstrap-context.sh`;
+Stop and PostToolUse delegate directly to `scripts/dockit-validate-session.sh`;
+Codex CLI integration is documented through `docs/integrations/CODEX.md` and
+`scripts/dockit-install-codex-hook.sh`.
+
+The legacy transcript-aware local Stop hook (`scripts/dockit-stop-hook.sh`) is
+removed because `.claude/settings.json` no longer wires it.
+
+### Context
+The repo had a partial DocKit sync: new validator and SessionStart assets were
+present, but project docs still described the v0.1.1 transcript-aware Stop hook
+as active. That left the implementation and decision log disagreeing.
+
+### Rationale
+- Keeping the template-managed hook path avoids a local fork of DocKit behavior.
+- `dockit-validate-session.sh` is the single enforcement entry point for
+  Claude Code hooks, manual checks, pre-commit, and smoke tests.
+- `DOCKIT_ALLOW_READ_ONLY_SKIP=1` preserves no-op read-only session behavior
+  when the tracked tree has no local changes.
+- The Codex hook installer prevents the known JSON-envelope mismatch by using
+  bootstrap `--human` mode.
+
+### Implications
+- D-008 remains useful history but is no longer the active hook contract.
+- A dirty tracked tree with stale docs can still block Stop until HANDOFF and
+  HISTORY are reconciled. That is acceptable for this repo's operator workflow.
+- Future hook policy changes should be made upstream in LLM-DocKit first unless
+  there is a project-specific provisioning reason to fork behavior.

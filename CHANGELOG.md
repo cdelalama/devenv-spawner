@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] - 2026-06-22
+
+### Added
+- Added LLM-DocKit sync opt-in and current template governance assets:
+  `.dockit-enabled`, version sync tooling, validator smoke tests, SessionStart
+  bootstrap, Trace helper, Codex hook installer, GitHub templates, and Codex
+  integration notes.
+- Added `docs/VERSIONING_RULES.md` so the version sync manifest no longer
+  points at a missing policy file.
+
+### Changed
+- Aligned Claude Code hooks with the LLM-DocKit v4.12.3 template-managed model.
+- Updated repository structure, handoff, and project context docs for v0.1.2.
+
+### Fixed
+- Reconciled the stale D-008 Stop-hook contract by recording D-010 and removing
+  the now-unwired `scripts/dockit-stop-hook.sh` helper.
+- Fixed DocKit validation failures for missing HISTORY date, stale HANDOFF date,
+  missing Open work orientation, and missing versioning rules.
+
 ## [0.1.1] - 2026-05-13
 
 ### Changed

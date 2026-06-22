@@ -1,8 +1,8 @@
-<!-- doc-version: 0.1.1 -->
+<!-- doc-version: 0.1.2 -->
 # devenv-spawner Architecture
 
-> Version: 0.1.1
-> Last Updated: 2026-05-13
+> Version: 0.1.2
+> Last Updated: 2026-06-22
 > Status: Design
 > Authors: Carlos de la Lama-Noriega
 
@@ -15,6 +15,10 @@ devenv-spawner is a bash-based provisioning tool that creates development user e
 - **Where it runs**: dev-vm (Ubuntu 22.04, 16GB RAM, 2 vCPU)
 - **Primary inputs**: Username, optional config flags
 - **Primary outputs**: A fully configured Linux user with dev tools
+
+LLM-DocKit governance tooling (`scripts/dockit-*.sh`, `.claude/settings.json`,
+and docs under `docs/llm/`) is operator workflow infrastructure. It does not
+change the provisioning runtime path.
 
 ## Non-negotiables
 

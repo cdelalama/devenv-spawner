@@ -1,4 +1,4 @@
-<!-- doc-version: 0.1.1 -->
+<!-- doc-version: 0.1.2 -->
 # Project Context - devenv-spawner
 
 ## Vision
@@ -26,8 +26,15 @@ A provisioning script (bash) that:
 
 Shared system-level tools (Docker, Go, Python) are NOT installed per-user -- they're already available system-wide.
 
-## Current Status (2026-05-13)
-v0.1.1 consolidates the previously uncommitted docs guardrail and rename cleanup. spawn-user.sh includes automatic verify (bash) + diagnose (Claude Code CLI). Test phase with testuser is complete; Laura has been provisioned. The repository was renamed from `dev-spawner` to `devenv-spawner` and is now the user-provisioning layer of the `devenv-stack` registered in `~/src/home-infra/docs/DEVENV_STACK.md`.
+## Current Status (2026-06-22)
+v0.1.2 completes the LLM-DocKit governance cleanup: SessionStart onboarding,
+validator, version sync tooling, Trace helper, Codex hook installer, GitHub
+templates, versioning rules, and integration docs are aligned with the current
+template. The provisioning behavior remains unchanged: spawn-user.sh includes
+automatic verify (bash) + diagnose (Claude Code CLI). Test phase with testuser
+is complete; Laura has been provisioned. The repository was renamed from
+`dev-spawner` to `devenv-spawner` and is the user-provisioning layer of the
+`devenv-stack` registered in `~/src/home-infra/docs/DEVENV_STACK.md`.
 
 ## Upcoming Milestones
 1. ~~Brainstorming: resolve all open design decisions~~ - DONE 2026-03-01

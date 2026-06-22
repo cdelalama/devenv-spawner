@@ -1,17 +1,17 @@
-<!-- doc-version: 0.1.1 -->
+<!-- doc-version: 0.1.2 -->
 # LLM Work Handoff - devenv-spawner
 
 ## Current Status
-- Last Updated: 2026-05-13 - GPT-5 Codex
-- Session Focus: Consolidated the previously uncommitted Stop hook docs guardrail, missing validator script, and `dev-spawner` -> `devenv-spawner` rebrand cleanup.
-- Status: v0.1.1 on `main`. Laura provisioned (2026-03-02). The repository is now the user-provisioning layer of the `devenv-stack`; pending runtime work remains validating `--update-templates` backup behavior.
+- Last Updated: 2026-06-22 - GPT-5 Codex
+- Session Focus: Cleaned the partial LLM-DocKit sync, removed stale Stop-hook wiring, added missing versioning policy, and bumped the repo to v0.1.2.
+- Status: v0.1.2 on `main`. Laura provisioned (2026-03-02). The repository is the user-provisioning layer of the `devenv-stack`; pending runtime work remains validating `--update-templates` backup behavior.
 
 ## Project Summary
 
 **devenv-spawner** automates provisioning of development user environments on a shared Ubuntu VM (dev-vm, 10.0.0.110). Run one script, get a fully working dev environment.
 
 **Repository:** https://github.com/cdelalama/devenv-spawner
-**Current version:** 0.1.1
+**Current version:** 0.1.2
 **Tech stack:** Bash scripts + Claude Code CLI (for diagnosis), no other external dependencies
 
 ## What's Implemented
@@ -52,6 +52,15 @@ Safe user removal with confirmation.
 - Flags: `--yes` for automation (skips confirmation prompt)
 - Graceful: exits 0 if user doesn't exist (not an error)
 
+### LLM-DocKit governance tooling
+- `.dockit-enabled` opts this repo into LLM-DocKit sync checks.
+- `.claude/settings.json` runs SessionStart onboarding and Stop/PostToolUse documentation validation.
+- `scripts/dockit-validate-session.sh` is the single validation entry point.
+- `scripts/dockit-trace-status.sh` prints current git/time facts for Trace headers.
+- `scripts/dockit-install-codex-hook.sh` installs the Codex CLI SessionStart hook in `--human` mode.
+- `docs/integrations/CODEX.md` documents the Codex integration contract.
+- `docs/VERSIONING_RULES.md` defines SemVer impact and version sync workflow.
+
 ### Templates
 - `bashrc.template` — Ubuntu standard + keychain (guarded with `command -v`), NVM, Go, pnpm (using $HOME), ~/.local/bin, Claude alias
 - `profile.template` — Standard + NVM for login shells
@@ -65,7 +74,7 @@ Safe user removal with confirmation.
 
 ## Closed Design Decisions
 
-See `docs/llm/DECISIONS.md` for full rationale (D-001 through D-009).
+See `docs/llm/DECISIONS.md` for full rationale (D-001 through D-010).
 
 Summary:
 - D-001: Multi-user on same VM (not separate VMs)
@@ -75,8 +84,9 @@ Summary:
 - D-005: API key shared opt-in only (--copy-admin-credentials)
 - D-006: Create-if-missing with --update-templates for updates
 - D-007: Automatic verify (bash) + diagnose (Claude Code CLI) post-provisioning
-- D-008: Stop hook gates on real code edits, not session occurrence
+- D-008: Stop hook gates on real code edits, not session occurrence (superseded)
 - D-009: `devenv-spawner` is the user-provisioning layer of the `devenv-stack`
+- D-010: LLM-DocKit v4.12 owns session governance
 
 ## Known Bugs Fixed
 - `((COUNT++))` with `set -e`: bash arithmetic returns exit 1 when result is 0 (post-increment from 0). Fixed by using `COUNT=$((COUNT + 1))` instead.
@@ -90,6 +100,11 @@ Summary:
 3. **NEXT**: Validate `--update-templates` backup behavior on Laura
 4. **LATER**: Additional optional modules
 5. **DONE**: ~~Commit the Stop-hook/validator guardrail and devenv-stack rename cleanup~~ (v0.1.1)
+6. **DONE**: ~~Clean partial LLM-DocKit sync and bump to v0.1.2~~
+
+## Open work -- next concrete step
+
+- Validate `scripts/spawn-user.sh` with `--update-templates` backup behavior on Laura before modifying `templates/bashrc.template`, `templates/profile.template`, or other user templates.
 
 ## Do Not Touch
 - Templates should not be modified without re-testing spawn-user.sh
