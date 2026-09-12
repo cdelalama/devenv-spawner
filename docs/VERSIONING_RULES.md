@@ -1,4 +1,4 @@
-<!-- doc-version: 0.1.2 -->
+<!-- doc-version: 0.1.3 -->
 # Versioning Rules
 
 `devenv-spawner` uses SemVer for the user-provisioning tooling and its

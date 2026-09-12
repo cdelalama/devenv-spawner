@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.3] - 2026-09-12
+
+### Added
+- Added the centrally managed Fable-preferred, exact-Opus fallback review
+  policy.
+
+### Changed
+- Preserved the repository's prior full-template identity and provisioning
+  behavior.
+
+### Fixed
+- None.
+
 ## [0.1.2] - 2026-06-22
 
 ### Added

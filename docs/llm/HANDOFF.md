@@ -1,8 +1,8 @@
-<!-- doc-version: 0.1.2 -->
+<!-- doc-version: 0.1.3 -->
 # LLM Work Handoff - devenv-spawner
 
 ## Current Status
-- Last Updated: 2026-06-22 - GPT-5 Codex
+- Last Updated: 2026-09-12 - GPT-5 Codex
 - Session Focus: Cleaned the partial LLM-DocKit sync, removed stale Stop-hook wiring, added missing versioning policy, and bumped the repo to v0.1.2.
 - Status: v0.1.2 on `main`. Laura provisioned (2026-03-02). The repository is the user-provisioning layer of the `devenv-stack`; pending runtime work remains validating `--update-templates` backup behavior.
 
