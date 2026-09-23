@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.4] - 2026-09-23
+
+### Changed
+- Updated DocKit delivery checks and Opus 5.5 review policy; no runtime deployment.
+
+
+
+
 ## [0.1.3] - 2026-09-12
 
 ### Added
