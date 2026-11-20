@@ -1,4 +1,4 @@
-<!-- doc-version: 0.1.4 -->
+<!-- doc-version: 0.1.5 -->
 # LLM Start Guide - devenv-spawner
 
 - Last Updated: 2026-09-23 - Codex (DocKit fleet update).
@@ -264,6 +264,22 @@ review constraints remain in force. Projects that exclude this section through
 The source policy belongs to LLM-DocKit; Claude Code's user `model` setting is a
 separate runtime default and does not prove that project copies were synchronized.
 <!-- DOCKIT-TEMPLATE:END independent-review-policy -->
+
+<!-- DOCKIT-TEMPLATE:START runtime-lifecycle -->
+### Retire disposable test runtime
+
+Follow docs/RUNTIME_LIFECYCLE.md whenever a task creates disposable runtime.
+Preserve durable evidence outside the container, then retire its exact ID and
+verify disappearance before declaring success. Persist creation intent and run ID;
+reconcile interrupted attempts before retrying. A failed cleanup stops that
+producer. Respect host creation holds and allocation checks before engine writes.
+Debug holds require an owner, reason, finite lease and next action. Record one
+sanitized receipt per run in docs/llm/runtime; none is task-specific with a reason,
+never inferred from missing records. Use scripts/dockit-runtime.py --strict for
+runtime closeout. Do not delete unknown objects, data volumes, images or historical
+snapshots by age. DocKit checks declarations; host reconciliation finds undeclared
+objects. Installing this rule does not install a garbage collector.
+<!-- DOCKIT-TEMPLATE:END runtime-lifecycle -->
 
 <!-- DOCKIT-TEMPLATE:START footer -->
 ---

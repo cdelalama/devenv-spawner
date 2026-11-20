@@ -62,7 +62,7 @@ while [ $# -gt 0 ]; do
         --help|-h)
             echo "Usage: $0 [--human|--json] [--quiet] [--check NAME]... [--project PATH]"
             echo ""
-            echo "Checks: handoff-date, history-entry, decisions-referenced, version-sync, external-context, external-triggers, orientation, handoff-shape, orientation-drift, template-residue, trace-protocol"
+            echo "Checks: handoff-date, history-entry, decisions-referenced, version-sync, external-context, external-triggers, orientation, handoff-shape, orientation-drift, template-residue, trace-protocol, work-records, idea-continuity, runtime-lifecycle"
             echo ""
             echo "Exit codes: 0=pass, 1=fail, 2=script error"
             exit 0
@@ -1238,6 +1238,59 @@ check_handoff_shape() {
     else add_result "handoff-shape" "PASS" "Size within advisory threshold; $_hs_content"; fi
 }
 
+check_runtime_lifecycle() {
+    if ! should_run "runtime-lifecycle"; then return; fi
+    if ! command -v python3 >/dev/null 2>&1 || [ ! -f "$PROJECT_ROOT/scripts/dockit-runtime.py" ]; then
+        add_result "runtime-lifecycle" "WARN" "Runtime lifecycle checker unavailable; coverage unknown"
+        return
+    fi
+    if _runtime_result=$(python3 "$PROJECT_ROOT/scripts/dockit-runtime.py" --project "$PROJECT_ROOT" --human 2>&1); then
+        add_result "runtime-lifecycle" "PASS" "$_runtime_result"
+    else
+        add_result "runtime-lifecycle" "WARN" "$_runtime_result"
+    fi
+}
+
+check_work_records() {
+    if ! should_run "work-records"; then return; fi
+    # Optional records require Python only in projects adopting this contract.
+    if [ ! -d "$PROJECT_ROOT/docs/llm/work" ]; then return; fi
+    if ! command -v python3 >/dev/null 2>&1 || [ ! -f "$PROJECT_ROOT/scripts/dockit-workspace.py" ]; then
+        add_result "work-records" "FAIL" "Work records adopted but Python 3 or the DocKit workspace helper is missing; install the reviewed helper before completing adoption"
+        return
+    fi
+    if _work_result=$(python3 "$PROJECT_ROOT/scripts/dockit-workspace.py" --project "$PROJECT_ROOT" 2>&1); then
+        add_result "work-records" "PASS" "$_work_result"
+    else
+        add_result "work-records" "FAIL" "$_work_result"
+    fi
+}
+
+check_idea_continuity() {
+    if ! should_run "idea-continuity"; then return; fi
+    _ideas_path="docs/llm/IDEA_INDEX.json"
+    if [ ! -f "$PROJECT_ROOT/$_ideas_path" ] \
+        && ! git -C "$PROJECT_ROOT" cat-file -e "HEAD:$_ideas_path" 2>/dev/null \
+        && ! git -C "$PROJECT_ROOT" cat-file -e "HEAD^:$_ideas_path" 2>/dev/null; then
+        skip_result "idea-continuity" "Not adopted; no idea index in working tree or recent history"
+        return
+    fi
+    if ! command -v python3 >/dev/null 2>&1 || [ ! -f "$PROJECT_ROOT/scripts/dockit-ideas.py" ]; then
+        add_result "idea-continuity" "FAIL" "Idea continuity adopted but Python 3 or pinned helper is missing"
+        return
+    fi
+    set -- --project "$PROJECT_ROOT"
+    if [ -n "${DOCKIT_IDEA_BASELINE:-}" ]; then set -- "$@" --baseline "$DOCKIT_IDEA_BASELINE"; fi
+    if [ -n "${DOCKIT_IDEA_PROJECTS:-}" ]; then set -- "$@" --projects "$DOCKIT_IDEA_PROJECTS"; fi
+    _ideas_rc=0
+    _ideas_result=$(python3 "$PROJECT_ROOT/scripts/dockit-ideas.py" "$@" 2>&1) || _ideas_rc=$?
+    case "$_ideas_rc" in
+        0) add_result "idea-continuity" "PASS" "$_ideas_result";;
+        3) add_result "idea-continuity" "WARN" "$_ideas_result";;
+        *) add_result "idea-continuity" "FAIL" "$_ideas_result";;
+    esac
+}
+
 # ── Run all checks ──────────────────────────────────────────────────────────
 
 check_handoff_date
@@ -1251,6 +1304,9 @@ check_handoff_shape
 check_orientation_drift
 check_template_residue
 check_trace_protocol
+check_work_records
+check_runtime_lifecycle
+check_idea_continuity
 
 # ── Output ───────────────────────────────────────────────────────────────────
 

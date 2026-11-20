@@ -1,7 +1,11 @@
-<!-- doc-version: 0.1.4 -->
+<!-- doc-version: 0.1.5 -->
 # LLM Work Handoff - devenv-spawner
 
 ## Current Status
+
+- Last Updated: 2026-11-20 - Codex (shared tooling only).
+
+Shared tooling maintenance (2026-11-20): adopted reviewed LLM-DocKit aa04548 disposable-runtime lifecycle and advisory receipt checks. Undeclared runtime coverage is unproven. No application runtime or roadmap acceptance changed. See docs/RUNTIME_LIFECYCLE.md.
 
 - Last Updated: 2026-09-23 - Codex (DocKit fleet update).
 - Source tooling: DocKit 4.16.3 adopted; see `docs/llm/DOCKIT_ADOPTION.md`.

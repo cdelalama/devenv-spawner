@@ -1,3 +1,4 @@
+- 2026-11-20 - Codex - Selectively installed reviewed DocKit aa04548 disposable-runtime policy and advisory checker; managed hashes/selected checks recorded by Home Infra. Runtime and product priorities unchanged; Dossier no_change for tooling-only adoption.
 # LLM Change History
 
 Append new entries at the top so the most recent activity is easiest to find.
